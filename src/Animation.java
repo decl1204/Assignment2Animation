@@ -67,7 +67,7 @@ public class Animation {
 	public void addFrameAt(int index,AnimationFrame frame)
 	{
 		LinearNode<AnimationFrame> curr,pred;
-		LinearNode<AnimationFrame> atFrame = new LinearNode(frame);
+		LinearNode<AnimationFrame> atFrame = new LinearNode<AnimationFrame>(frame);
 
 		if(firstFrame.getData().getHeight() == frame.getHeight() &&
 				firstFrame.getData().getWidth() == frame.getWidth() && 
@@ -80,8 +80,17 @@ public class Animation {
 				pred = curr;
 				curr = curr.getNext();
 			}
-			curr.setNext(atFrame);
-			numFrames++;
+			if(pred == null)
+			{
+				atFrame.setNext(firstFrame);;
+				firstFrame = atFrame;
+			}
+			else
+			{
+				LinearNode<AnimationFrame> succ = pred.getNext();
+				atFrame.setNext(succ);
+				pred.setNext(atFrame);
+			}
 		}
 		else throw new AnimationException("");
 	}
