@@ -1,4 +1,4 @@
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;	
 import java.io.File;
 import javax.imageio.ImageIO;
 
@@ -14,11 +14,18 @@ public class AnimationFrame {
 			image = ImageIO.read(new File(imageFilename));
 		}
 		catch(Exception e){
-			System.out.print(e.getMessage());
+			System.out.println("Unable to load image");
 		}
-		width = image.getWidth();
-		height = image.getHeight();
-		filename = imageFilename;
+		if(image != null)
+		{
+			width = image.getWidth();
+			height = image.getHeight();
+			filename = imageFilename;	
+		}
+		else
+		{
+			System.out.println("Unable to load image");
+		}
 	}
 	public String getFilename()
 	{
@@ -38,8 +45,8 @@ public class AnimationFrame {
 	}
 	public boolean equals(AnimationFrame other)
 	{
-		if(this.getWidth() == other.getWidth() && this.getHeight() == other.getHeight()
-				&& this.getFilename() == other.getFilename())
+		if(getWidth() == other.getWidth() && getHeight() == other.getHeight()
+				&& getFilename() == other.getFilename())
 		{
 			return true;
 		}
