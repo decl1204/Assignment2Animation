@@ -31,18 +31,11 @@ public class Animation {
 		LinearNode<AnimationFrame> curr = firstFrame;
 		if(index >= 1 && index <= numFrames)
 		{
-			while(curr.getNext() != null)
+			for(int i = 1; i < index; i++)
 			{
-				if(node == index)
-				{
-					return curr.getData();
-				}
-				else
-				{
-					node++;
-					curr = curr.getNext();
-				}
+				curr = curr.getNext();
 			}
+			return curr.getData();
 		}
 		throw new AnimationException("Unable to load image");	
 	}

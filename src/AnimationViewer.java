@@ -46,7 +46,6 @@ public class AnimationViewer extends JFrame {
 		showFrame(1);
 
 	}
-	
 	public void play () {
 		try {
 			for (int frameNum = 1; frameNum <= animation.getNumFrames(); frameNum++) {
