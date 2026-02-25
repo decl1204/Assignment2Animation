@@ -5,7 +5,7 @@ public class Animation {
 
 	public Animation(AnimationFrame frame)
 	{
-		firstFrame = new LinearNode(frame);
+		firstFrame = new LinearNode<AnimationFrame>(frame);
 		numFrames = 1;
 	}	
 	public int getNumFrames()
@@ -37,12 +37,12 @@ public class Animation {
 			}
 			return curr.getData();
 		}
-		throw new AnimationException("Unable to load image");	
+		throw new AnimationException("SDLKFJLSKDF");	
 	}
 	public void addFrameAtEnd(AnimationFrame frame)
 	{
 		LinearNode<AnimationFrame> curr;
-		LinearNode<AnimationFrame> endFrame = new LinearNode(frame);
+		LinearNode<AnimationFrame> endFrame = new LinearNode<AnimationFrame>(frame);
 
 		if(firstFrame.getData().getHeight() == frame.getHeight() && 
 				firstFrame.getData().getWidth() == frame.getWidth())
@@ -57,14 +57,42 @@ public class Animation {
 		}
 		else throw new AnimationException("");
 	}
+	private boolean sameSize(AnimationFrame frame)
+	{
+		if(firstFrame.getData().getHeight() == frame.getHeight() &&
+				firstFrame.getData().getWidth() == frame.getWidth())
+		{
+			return true;
+		}
+		else
+		{
+			throw new AnimationException("Frame sizes must be consistent");
+		}
+		
+	}
+	private boolean validIndex(int index)
+	{
+		if(1 > index)
+		{
+			throw new AnimationException("Frame index too low");
+		}
+		else if(index > numFrames)
+		{
+			throw new AnimationException("Frame index too high");
+		}	
+		else if(index == 1)
+		{
+			throw new AnimationException("Cannot remove the only frame");
+		}
+		else
+			return true;
+	}
 	public void addFrameAt(int index,AnimationFrame frame)
 	{
 		LinearNode<AnimationFrame> curr,pred;
 		LinearNode<AnimationFrame> atFrame = new LinearNode<AnimationFrame>(frame);
 
-		if(firstFrame.getData().getHeight() == frame.getHeight() &&
-				firstFrame.getData().getWidth() == frame.getWidth() && 
-				1 < index && index < numFrames)
+		if(sameSize(frame) && validIndex(index))
 		{
 			curr = firstFrame;
 			pred = null;
@@ -85,7 +113,6 @@ public class Animation {
 				pred.setNext(atFrame);
 			}
 		}
-		else throw new AnimationException("");
 	}
 	public boolean tryAddFrameAtEnd(AnimationFrame frame)
 	{
@@ -117,7 +144,7 @@ public class Animation {
 	public AnimationFrame removeFrameAt(int index)
 	{
 		LinearNode<AnimationFrame> curr,pred;
-		if(1 < index && index <= numFrames && numFrames >= 2)
+		if(validIndex(index) && numFrames >= 2)
 		{
 			curr = firstFrame;
 			pred = null;
@@ -153,7 +180,6 @@ public class Animation {
 	{
 		LinearNode<AnimationFrame> curr = firstFrame;
 		int countNode = numFrames;
-		System.out.println(numFrames);
 		while(countNode != numFrames % 2)
 		{
 			if(countNode % 2 == 0)

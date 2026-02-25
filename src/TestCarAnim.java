@@ -14,9 +14,11 @@ public class TestCarAnim {
 		
 		System.out.println("Frames added to the animation");
 		
-		AnimationFrame frame;
+		AnimationFrame frame, frame2;
 		frame = driveAnim.getFrameAt(2);
-		System.out.println("<2,"+frame.getFilename()+">"); // Expected "<2,drive/Slide2.png>"
+		frame2 = driveAnim.getFrameAt(3);
+		System.out.println("<2,"+frame.getFilename()+">");
+		System.out.println("<2,"+frame2.getFilename()+">");// Expected "<2,drive/Slide2.png>"
 		// Try to add a frame of a different size to the driving car animation.
 		try {
 			AnimationFrame badFrame = new AnimationFrame("letters/A.png");

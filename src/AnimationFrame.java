@@ -12,20 +12,13 @@ public class AnimationFrame {
 	{
 		try {
 			image = ImageIO.read(new File(imageFilename));
+			width = image.getWidth();
+			height = image.getHeight();
+			filename = imageFilename;		
 		}
 		catch(Exception e){
 			System.out.println("Unable to load image");
-		}
-		if(image != null)
-		{
-			width = image.getWidth();
-			height = image.getHeight();
-			filename = imageFilename;	
-		}
-		else
-		{
-			System.out.println("Unable to load image");
-		}
+		}	
 	}
 	public String getFilename()
 	{
@@ -44,15 +37,7 @@ public class AnimationFrame {
 		return height;
 	}
 	public boolean equals(AnimationFrame other)
-	{
-		if(getWidth() == other.getWidth() && getHeight() == other.getHeight()
-				&& getFilename() == other.getFilename())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	{		
+		return this.getWidth() == other.getWidth() && this.getHeight() == other.getHeight() && this.getFilename().equals(other.getFilename());
 	}
 }
